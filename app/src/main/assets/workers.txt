@@ -1,0 +1,4 @@
+John Smith,40,25.50
+Jane Doe,35,30.00
+Bob Johnson,42,22.75
+Chris Maradiaga, 22 , 19.75
