@@ -70,7 +70,7 @@ private fun WorkerItem(worker: Worker) {
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text = "Hours: ${worker.hoursWorked}",
+            text = "Hours Worked: ${worker.hoursWorked}",
             style = MaterialTheme.typography.bodyMedium,
             color = Color.Magenta
         )
