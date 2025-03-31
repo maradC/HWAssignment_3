@@ -15,7 +15,7 @@ class WorkerRepository(private val application: Application) {
     val appDeveloperName = mutableStateOf("Chris M")
     val appVersion = mutableStateOf("3.9.2")
 
-    private val myScope = CoroutineScope(Dispatchers.IO)
+     val myScope = CoroutineScope(Dispatchers.IO)
 
     init {
         myScope.launch {
