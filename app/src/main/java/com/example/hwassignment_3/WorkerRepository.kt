@@ -15,25 +15,26 @@ class WorkerRepository(private val application: Application) {
     val appDeveloperName = mutableStateOf("Chris M")
     val appVersion = mutableStateOf("3.9.2")
 
+    private val myScope = CoroutineScope(Dispatchers.IO)
+
     init {
-        CoroutineScope(Dispatchers.IO).launch {
+        myScope.launch {
             workersFromFile()
         }
     }
 
-    // This will return the mutable state list which updates automatically
     fun getWorkers(): List<Worker> = workerList
 
-    private fun workersFromFile() {
+    private suspend fun workersFromFile() {
         val fileName = "workers.txt"
         try {
+            println("Attempting to open file: $fileName")
             val inputStream = application.assets.open(fileName)
             val reader = BufferedReader(InputStreamReader(inputStream))
             var line: String?
 
             while (reader.readLine().also { line = it } != null) {
                 line?.let {
-                    // Parse the line and create a Worker object
                     val parts = it.split(",")
                     if (parts.size >= 3) {
                         val worker = Worker(
@@ -41,7 +42,6 @@ class WorkerRepository(private val application: Application) {
                             hoursWorked = parts[1],
                             rate = parts[2].toDouble()
                         )
-                        // Add to UI thread since we're modifying state
                         CoroutineScope(Dispatchers.Main).launch {
                             workerList.add(worker)
                         }
@@ -51,7 +51,6 @@ class WorkerRepository(private val application: Application) {
             reader.close()
         } catch (e: Exception) {
             e.printStackTrace()
-            // Add logging to see the error
             println("Error reading workers file: ${e.message}")
         }
     }
