@@ -10,6 +10,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class WorkerRepository(private val application: Application) {
+
     private val workerList = mutableStateListOf<Worker>()
     val appName = mutableStateOf("Worker.io")
     val appDeveloperName = mutableStateOf("Chris M")

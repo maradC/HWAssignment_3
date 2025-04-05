@@ -2,6 +2,7 @@ package com.example.hwassignment_3
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -13,25 +14,21 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun DetailsUI(workerName: String, onBackPressed: () -> Unit, modifier: Modifier = Modifier) {
+fun AppInfoUI(modifier: Modifier = Modifier) {
 
-    val viewModel = viewModel<DetailListViewModel>(key = workerName) {
-        DetailListViewModel(MyApplication.x, workerName)
-    }
-
-    val name = viewModel.name.value
-    val hoursWorked = viewModel.hoursWorked.value
-    val rate = viewModel.rate.value
-    val pay = viewModel.pay.value
+    val viewModel: AppInfoViewModel = viewModel { AppInfoViewModel(MyApplication.x) }
+    val name = viewModel.appName.value
+    val dev = viewModel.appDeveloperName.value
+    val vers = viewModel.appVersion.value
 
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         Spacer(modifier = Modifier.height(16.dp))
-        WorkerDetailSection(name, hoursWorked, rate, pay)
+        AppInfoSection(name, dev, vers)
     }
 }
 
 @Composable
-private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double, pay: Double) {
+private fun AppInfoSection(appName: String, devName: String, version: String) {
     Surface(
         modifier = Modifier
             .padding(20.dp)
@@ -41,7 +38,7 @@ private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double,
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Worker Details",
+                text = "App Info",
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
@@ -52,7 +49,7 @@ private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double,
             Spacer(modifier = Modifier.height(5.dp))
 
             Text(
-                text = "Name: $name",
+                text = "Name: $appName",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Magenta
             )
@@ -60,7 +57,7 @@ private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double,
             Spacer(modifier = Modifier.height(5.dp))
 
             Text(
-                text = "Hours Worked: $hoursWorked",
+                text = "Developer: $devName",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Magenta
             )
@@ -68,15 +65,7 @@ private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double,
             Spacer(modifier = Modifier.height(5.dp))
 
             Text(
-                text = "Rate: $${String.format("%.2f", rate)}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Magenta
-            )
-
-            Spacer(modifier = Modifier.height(5.dp))
-
-            Text(
-                text = "Total Pay: $${String.format("%.2f", pay)}",
+                text = "Version: $version",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Magenta
             )

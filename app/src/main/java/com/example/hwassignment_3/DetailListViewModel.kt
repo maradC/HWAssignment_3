@@ -4,11 +4,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class DetailListViewModel(private val workerRepository: WorkerRepository, private val targetWorkerName:String) : ViewModel() {
+    val name = mutableStateOf(" ")
+    val hoursWorked = mutableStateOf(" ")
+    val rate = mutableStateOf(0.0)
+    val pay = mutableStateOf(0.0)
 
-val name = mutableStateOf(" ")
-val hoursWorked = mutableStateOf(" ")
-val rate = mutableStateOf(0.0)
-val pay = mutableStateOf(0.0)
     init {
         val worker = workerRepository.getWorkers().find { it.name == targetWorkerName }
 
