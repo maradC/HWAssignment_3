@@ -9,25 +9,59 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-
+// This is a top-level composable that manages navigation state
 @Composable
-fun WorkerListUI(modifier: Modifier = Modifier) {
+fun WorkerApp() {
+    // Keep track of current screen and selected worker
+    val currentScreen = remember { mutableStateOf("list") }
+    val selectedWorkerName = remember { mutableStateOf("") }
+
+    when (currentScreen.value) {
+        "list" -> WorkerListUI(
+            onWorkerSelected = { workerName ->
+                // When worker is clicked, store name and navigate to details
+                selectedWorkerName.value = workerName
+                currentScreen.value = "detail"
+            }
+        )
+        "detail" -> DetailsUI(
+            workerName = selectedWorkerName.value,
+            onBackPressed = {
+                // Go back to list when back button is pressed
+                currentScreen.value = "list"
+            }
+        )
+    }
+}
+
+// Modified WorkerListUI to accept onWorkerSelected callback
+@Composable
+fun WorkerListUI(
+    onWorkerSelected: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     val viewModel: WorkerListViewModel = viewModel { WorkerListViewModel(MyApplication.x) }
     val workers = viewModel.workers
 
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
         Spacer(modifier = Modifier.height(16.dp))
-        WorkerListSection(workers)
+        WorkerListSection(workers, onWorkerSelected)
     }
 }
 
+// Modify WorkerListSection to pass onWorkerSelected callback
 @Composable
-private fun WorkerListSection(workers: List<Worker>) {
+private fun WorkerListSection(
+    workers: List<Worker>,
+    onWorkerSelected: (String) -> Unit
+) {
     Surface(
         modifier = Modifier
             .padding(20.dp)
@@ -40,38 +74,45 @@ private fun WorkerListSection(workers: List<Worker>) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            WorkerList(workers)
+            WorkerList(workers, onWorkerSelected)
         }
     }
 }
 
+// Modify WorkerList to pass onWorkerSelected callback
 @Composable
-private fun WorkerList(workers: List<Worker>) {
+private fun WorkerList(
+    workers: List<Worker>,
+    onWorkerSelected: (String) -> Unit
+) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(workers) { worker ->
-            WorkerItem(worker)
+            WorkerItem(worker, onWorkerSelected)
         }
     }
 }
 
+// Fix WorkerItem to use either clickable or onClick, not both
 @Composable
-private fun WorkerItem(worker: Worker) {
+private fun WorkerItem(
+    worker: Worker,
+    onWorkerSelected: (String) -> Unit
+) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {  }
             .padding(vertical = 1.dp),
         shape = RoundedCornerShape(8.dp),
-        color = Color.LightGray,
-        onClick = { /* You can add your click action here */ }
+        color = Color.LightGray
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(6.dp)
+                .clickable { onWorkerSelected(worker.name) }  // Add click handler here
         ) {
             Text(
                 text = worker.name,
