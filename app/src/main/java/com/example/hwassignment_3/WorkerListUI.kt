@@ -16,17 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-// This is a top-level composable that manages navigation state
 @Composable
 fun WorkerApp() {
-    // Keep track of current screen and selected worker
     val currentScreen = remember { mutableStateOf("list") }
     val selectedWorkerName = remember { mutableStateOf("") }
 
     when (currentScreen.value) {
         "list" -> WorkerListUI(
             onWorkerSelected = { workerName ->
-                // When worker is clicked, store name and navigate to details
                 selectedWorkerName.value = workerName
                 currentScreen.value = "detail"
             }
@@ -34,14 +31,12 @@ fun WorkerApp() {
         "detail" -> DetailsUI(
             workerName = selectedWorkerName.value,
             onBackPressed = {
-                // Go back to list when back button is pressed
                 currentScreen.value = "list"
             }
         )
     }
 }
 
-// Modified WorkerListUI to accept onWorkerSelected callback
 @Composable
 fun WorkerListUI(
     onWorkerSelected: (String) -> Unit = {},
@@ -56,7 +51,6 @@ fun WorkerListUI(
     }
 }
 
-// Modify WorkerListSection to pass onWorkerSelected callback
 @Composable
 private fun WorkerListSection(
     workers: List<Worker>,
@@ -79,7 +73,6 @@ private fun WorkerListSection(
     }
 }
 
-// Modify WorkerList to pass onWorkerSelected callback
 @Composable
 private fun WorkerList(
     workers: List<Worker>,
@@ -95,7 +88,6 @@ private fun WorkerList(
     }
 }
 
-// Fix WorkerItem to use either clickable or onClick, not both
 @Composable
 private fun WorkerItem(
     worker: Worker,
