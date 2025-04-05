@@ -15,10 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun WorkerListUI(
-    onWorkerSelected: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
+fun WorkerListUI(onWorkerSelected: (String) -> Unit, modifier: Modifier = Modifier) {
     val viewModel: WorkerListViewModel = viewModel { WorkerListViewModel(MyApplication.x) }
     val workers = viewModel.workers
 
@@ -28,10 +25,7 @@ fun WorkerListUI(
 }
 
 @Composable
-private fun WorkerListSection(
-    workers: List<Worker>,
-    onWorkerSelected: (String) -> Unit
-) {
+private fun WorkerListSection(workers: List<Worker>, onWorkerSelected: (String) -> Unit) {
     Surface(
         modifier = Modifier
             .padding(20.dp)
@@ -50,10 +44,7 @@ private fun WorkerListSection(
 }
 
 @Composable
-private fun WorkerList(
-    workers: List<Worker>,
-    onWorkerSelected: (String) -> Unit
-) {
+private fun WorkerList(workers: List<Worker>, onWorkerSelected: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -65,10 +56,7 @@ private fun WorkerList(
 }
 
 @Composable
-private fun WorkerItem(
-    worker: Worker,
-    onWorkerSelected: (String) -> Unit
-) {
+private fun WorkerItem(worker: Worker, onWorkerSelected: (String) -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()

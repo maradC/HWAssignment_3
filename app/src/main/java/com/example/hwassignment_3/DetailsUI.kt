@@ -2,6 +2,7 @@ package com.example.hwassignment_3
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,6 +26,20 @@ fun DetailsUI(workerName: String, onBackPressed: () -> Unit, modifier: Modifier 
     val pay = viewModel.pay.value
 
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+        Surface(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            shadowElevation = 30.dp
+        ) {
+            Button(
+                onClick = onBackPressed,
+                modifier = Modifier.padding(10.dp)
+            ) {
+                Text("Back to Worker List")
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
         WorkerDetailSection(name, hoursWorked, rate, pay)
     }
