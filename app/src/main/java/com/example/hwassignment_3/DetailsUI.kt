@@ -41,7 +41,7 @@ private fun WorkerDetailSection(name: String, hoursWorked: String, rate: Double,
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Worker Details",
+                text = "Details Screen",
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,

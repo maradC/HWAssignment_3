@@ -41,10 +41,15 @@ android {
 
 dependencies {
 
-        var lifecycle_version = "2.8.7"
-// ViewModel
-        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    //Icons
+    var compose_version="1.5.4"
+    implementation("androidx.compose.material:material-icons-extended:$compose_version")
+    // updated dependecy for VM and NAV
+    implementation("androidx.navigation:navigation-compose:2.8.9")
+
+    var lifecycle_version = "2.8.7"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
 
     implementation(libs.androidx.core.ktx)

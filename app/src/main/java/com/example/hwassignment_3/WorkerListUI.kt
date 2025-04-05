@@ -5,48 +5,24 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-@Composable
-fun WorkerApp() {
-    val currentScreen = remember { mutableStateOf("list") }
-    val selectedWorkerName = remember { mutableStateOf("") }
-
-    when (currentScreen.value) {
-        "list" -> WorkerListUI(
-            onWorkerSelected = { workerName ->
-                selectedWorkerName.value = workerName
-                currentScreen.value = "detail"
-            }
-        )
-        "detail" -> DetailsUI(
-            workerName = selectedWorkerName.value,
-            onBackPressed = {
-                currentScreen.value = "list"
-            }
-        )
-    }
-}
 
 @Composable
 fun WorkerListUI(
-    onWorkerSelected: (String) -> Unit = {},
+    onWorkerSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: WorkerListViewModel = viewModel { WorkerListViewModel(MyApplication.x) }
     val workers = viewModel.workers
 
     Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
-        Spacer(modifier = Modifier.height(16.dp))
         WorkerListSection(workers, onWorkerSelected)
     }
 }
@@ -104,7 +80,7 @@ private fun WorkerItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(6.dp)
-                .clickable { onWorkerSelected(worker.name) }  // Add click handler here
+                .clickable { onWorkerSelected(worker.name) }
         ) {
             Text(
                 text = worker.name,
@@ -125,6 +101,7 @@ private fun WorkerItem(
         }
     }
 }
+
 @Composable
 private fun Heading(heading: String) {
     Text(
