@@ -1,5 +1,6 @@
 package com.example.hwassignment_3
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -58,30 +59,39 @@ private fun WorkerList(workers: List<Worker>) {
 
 @Composable
 private fun WorkerItem(worker: Worker) {
-    Column(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .clickable {  }
+            .padding(vertical = 1.dp),
+        shape = RoundedCornerShape(8.dp),
+        color = Color.LightGray,
+        onClick = { /* You can add your click action here */ }
     ) {
-        Text(
-            text = worker.name,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = "Hours Worked: ${worker.hoursWorked}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.Magenta
-        )
-        Text(
-            text = "Rate: $${String.format("%.2f", worker.rate)}",
-            color = Color.Magenta,
-            style = MaterialTheme.typography.bodyMedium
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(6.dp)
+        ) {
+            Text(
+                text = worker.name,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Hours Worked: ${worker.hoursWorked}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.Magenta
+            )
+            Text(
+                text = "Rate: $${String.format("%.2f", worker.rate)}",
+                color = Color.Magenta,
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }
-
 @Composable
 private fun Heading(heading: String) {
     Text(
