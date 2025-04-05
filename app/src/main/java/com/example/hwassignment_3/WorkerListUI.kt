@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +28,8 @@ private fun WorkerListSection(workers: List<Worker>, onWorkerSelected: (String) 
     Surface(
         modifier = Modifier
             .padding(20.dp)
-            .fillMaxWidth(),
+            .fillMaxSize(),
+
         shape = RoundedCornerShape(10.dp),
         shadowElevation = 30.dp
     ) {
