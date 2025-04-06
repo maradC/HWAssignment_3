@@ -18,7 +18,7 @@ fun WorkerListUI(onWorkerSelected: (String) -> Unit, modifier: Modifier = Modifi
     val viewModel: WorkerListViewModel = viewModel { WorkerListViewModel(MyApplication.x) }
     val workers = viewModel.workers
 
-    Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = modifier.fillMaxSize()) {
         WorkerListSection(workers, onWorkerSelected)
     }
 }
@@ -27,17 +27,14 @@ fun WorkerListUI(onWorkerSelected: (String) -> Unit, modifier: Modifier = Modifi
 private fun WorkerListSection(workers: List<Worker>, onWorkerSelected: (String) -> Unit) {
     Surface(
         modifier = Modifier
-            .padding(20.dp)
+            .padding(horizontal = 20.dp, vertical = 10.dp)
             .fillMaxSize(),
-
         shape = RoundedCornerShape(10.dp),
         shadowElevation = 30.dp
     ) {
         Column(modifier = Modifier.padding(16.dp).fillMaxSize()) {
             Heading("Worker List")
-
             Spacer(modifier = Modifier.height(16.dp))
-
             WorkerList(workers, onWorkerSelected)
         }
     }

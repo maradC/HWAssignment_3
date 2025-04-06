@@ -52,7 +52,7 @@ class WorkerRepository(private val application: Application) {
             reader.close()
         } catch (e: Exception) {
             e.printStackTrace()
-            println("Error reading workers file: ${e.message}")
+            println("Error reading  file: ${e.message}")
         }
     }
 }

@@ -14,7 +14,6 @@ fun Nav(navController: NavHostController, modifier: Modifier = Modifier) {
                 onWorkerSelected = { workerName ->
                     navController.navigate("details/$workerName")
                 },
-                modifier = modifier
             )
         }
         composable(route = "details/{workerName}") { backStackEntry ->
@@ -24,13 +23,10 @@ fun Nav(navController: NavHostController, modifier: Modifier = Modifier) {
                 onBackPressed = {
                     navController.popBackStack()
                 },
-                modifier = modifier
             )
         }
         composable(route = "appinfo") {
-            AppInfoUI(
-                modifier = modifier
-            )
+            AppInfoUI()
         }
     }
 }
