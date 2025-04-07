@@ -33,12 +33,12 @@ fun DetailsUI(workerName: String, onBackPressed: () -> Unit, modifier: Modifier 
             shape = RoundedCornerShape(10.dp),
             shadowElevation = 30.dp
         ) {
-            Button(
-                onClick = onBackPressed,
-                modifier = Modifier.padding(10.dp)
-            ) {
-                Text("Back to Worker List")
-            }
+//            Button(
+//                onClick = onBackPressed,
+//                modifier = Modifier.padding(10.dp)
+//            ) {
+//                Text("Back to Worker List")
+//            }
         }
         Spacer(modifier = Modifier.height(16.dp))
         WorkerDetailSection(name, hoursWorked, rate, pay)
